@@ -251,9 +251,7 @@ public class Analog24HClock extends View {
 
         final float scale = Math.min(hScale, vScale);
 
-        setMeasuredDimension(
-                getDefaultSize((int) (mDialWidth * scale), widthMeasureSpec),
-                getDefaultSize((int) (mDialHeight * scale), heightMeasureSpec));
+        setMeasuredDimension((int) (mDialWidth * scale), (int) (mDialHeight * scale));
     }
 
     @Override
