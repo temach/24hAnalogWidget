@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import info.staticfree.android.twentyfourhour.overlay.SunPositionOverlay;
+import info.staticfree.android.twentyfourhour.overlay.TimeStripOverlay;
 
 public class WidgetDemo extends Activity {
 
@@ -33,5 +34,6 @@ public class WidgetDemo extends Activity {
         final Analog24HClock clock = (Analog24HClock) findViewById(R.id.clock);
 
         clock.addDialOverlay(new SunPositionOverlay(this));
+        clock.addDialOverlay(new TimeStripOverlay(9, 12));
     }
 }

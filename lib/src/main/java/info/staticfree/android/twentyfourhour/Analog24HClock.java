@@ -47,6 +47,8 @@ import java.util.TimeZone;
 
 import info.staticfree.android.twentyfourhour.lib.R;
 import info.staticfree.android.twentyfourhour.overlay.DialOverlay;
+import info.staticfree.android.twentyfourhour.overlay.HandsOverlay;
+import info.staticfree.android.twentyfourhour.overlay.TimeStripOverlay;
 
 /**
  * A widget that displays the time as a 12-at-the-top 24 hour analog clock. By
@@ -70,6 +72,8 @@ public class Analog24HClock extends View {
     private int mRight;
     private boolean mSizeChanged;
 
+    // private HandsOverlay mHandsOverlay;
+
     private final ArrayList<DialOverlay> mDialOverlay = new ArrayList<DialOverlay>();
 
     public Analog24HClock(Context context, AttributeSet attrs, int defStyle) {
@@ -84,6 +88,7 @@ public class Analog24HClock extends View {
 
     public Analog24HClock(Context context) {
         super(context);
+
         init(context, null, 0);
     }
 
@@ -97,7 +102,22 @@ public class Analog24HClock extends View {
             setFace(R.drawable.clock_face);
         }
 
+        // Drawable hourHand = attrs.getDrawable(R.styleable.Analog24HClock_hour_hand);
+        // if (hourHand == null) {
+        //     hourHand = context.getResources().getDrawable(R.drawable.hour_hand);
+        // }
+
+        //Drawable minuteHand = attrs.getDrawable(R.styleable.Analog24HClock_minute_hand);
+        //if (minuteHand == null) {
+        //    minuteHand = context.getResources().getDrawable(R.drawable.minute_hand);
+        //}
+
         mCalendar = Calendar.getInstance();
+
+        // mHandsOverlay = new HandsOverlay(hourHand);//, minuteHand);
+
+        // TypedArray should be recycled after use
+        attrs.recycle();
     }
 
     public void setFace(int drawableRes) {
@@ -122,6 +142,7 @@ public class Analog24HClock extends View {
      */
     public void setTime(long time) {
         mCalendar.setTimeInMillis(time);
+
         invalidate();
     }
 
@@ -132,7 +153,19 @@ public class Analog24HClock extends View {
      */
     public void setTime(Calendar calendar) {
         mCalendar = calendar;
+
         invalidate();
+    }
+
+    /**
+     * When set, the minute hand will move slightly based on the current number
+     * of seconds. If false, the minute hand will snap to the minute ticks.
+     * Note: there is no second hand, this only affects the minute hand.
+     *
+     * @param showSeconds
+     */
+    public void setShowSeconds(boolean showSeconds) {
+        // mHandsOverlay.setShowSeconds(showSeconds);
     }
 
     /**
@@ -142,6 +175,10 @@ public class Analog24HClock extends View {
      */
     public void setTimezone(TimeZone timezone) {
         mCalendar = Calendar.getInstance(timezone);
+    }
+
+    public void setHandsOverlay(HandsOverlay handsOverlay) {
+        // mHandsOverlay = handsOverlay;
     }
 
     @Override
@@ -189,6 +226,8 @@ public class Analog24HClock extends View {
             overlay.onDraw(canvas, cX, cY, w, h, mCalendar, sizeChanged);
         }
 
+        // mHandsOverlay.onDraw(canvas, cX, cY, w, h, mCalendar, sizeChanged);
+
         if (scaled) {
             canvas.restore();
         }
@@ -216,7 +255,6 @@ public class Analog24HClock extends View {
 
         final float scale = Math.min(hScale, vScale);
 
-        // Do NOT be greedy, hence here we do NOT use getDefaultSize()
         setMeasuredDimension((int) (mDialWidth * scale), (int) (mDialHeight * scale));
     }
 
@@ -241,6 +279,7 @@ public class Analog24HClock extends View {
         mTop = top;
         mBottom = bottom;
     }
+
 
     public void addDialOverlay(DialOverlay dialOverlay) {
         mDialOverlay.add(dialOverlay);
