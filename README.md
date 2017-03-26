@@ -34,6 +34,7 @@ info.
 
 License
 -------
+Original author's website: http://staticfree.info/projects/24h_clock/
 
 24h Analog Clock Widget  
 Copyright (C) 2011-2014 [Steve Pomeroy](mailto:steve@staticfree.info)
