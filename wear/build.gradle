@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "info.staticfree.android.twentyfourhour.wear"
-        minSdkVersion 21
-        targetSdkVersion 21
+        minSdkVersion 25
+        targetSdkVersion 25
         versionCode 3
         versionName "1.1.0"
     }
