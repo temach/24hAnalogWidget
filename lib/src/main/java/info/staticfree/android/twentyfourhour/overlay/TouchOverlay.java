@@ -17,5 +17,5 @@ public interface TouchOverlay {
      * @param h
      *            the height of the canvas
      */
-    public abstract void onTouch(MotionEvent motion, int w, int h);
+    public abstract boolean onTouch(MotionEvent motion, int w, int h);
 }

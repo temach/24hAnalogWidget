@@ -189,9 +189,11 @@ public class Analog24HClock extends View {
         final int availW = mRight - mLeft;
         final int availH = mBottom - mTop;
         for (final TouchOverlay overlay : mTouchOverlay) {
-            overlay.onTouch(event, availW, availH);
+            if (overlay.onTouch(event, availW, availH)) {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 
 
