@@ -99,7 +99,7 @@ public class Analog24HClock extends View {
         if (face != null) {
             setFace(face);
         } else {
-            setFace(R.drawable.clock_face);
+            setFace(R.drawable.no_border_clock_face);
         }
 
         // Drawable hourHand = attrs.getDrawable(R.styleable.Analog24HClock_hour_hand);
