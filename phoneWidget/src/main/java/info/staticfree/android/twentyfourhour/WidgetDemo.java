@@ -33,7 +33,7 @@ public class WidgetDemo extends Activity {
 
         final Analog24HClock clock = (Analog24HClock) findViewById(R.id.clock);
 
-        clock.addDialOverlay(new SunPositionOverlay(this));
+        // clock.addDialOverlay(new SunPositionOverlay(this));
         clock.addDialOverlay(new TimeStripOverlay(9, 12));
     }
 }
