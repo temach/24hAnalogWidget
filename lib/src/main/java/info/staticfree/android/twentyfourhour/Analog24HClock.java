@@ -39,6 +39,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ import info.staticfree.android.twentyfourhour.lib.R;
 import info.staticfree.android.twentyfourhour.overlay.DialOverlay;
 import info.staticfree.android.twentyfourhour.overlay.HandsOverlay;
 import info.staticfree.android.twentyfourhour.overlay.TimeStripOverlay;
+import info.staticfree.android.twentyfourhour.overlay.TouchOverlay;
 
 /**
  * A widget that displays the time as a 12-at-the-top 24 hour analog clock. By
@@ -75,6 +77,7 @@ public class Analog24HClock extends View {
     // private HandsOverlay mHandsOverlay;
 
     private final ArrayList<DialOverlay> mDialOverlay = new ArrayList<DialOverlay>();
+    private final ArrayList<TouchOverlay> mTouchOverlay = new ArrayList<>();
 
     public Analog24HClock(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -180,6 +183,17 @@ public class Analog24HClock extends View {
     public void setHandsOverlay(HandsOverlay handsOverlay) {
         // mHandsOverlay = handsOverlay;
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        final int availW = mRight - mLeft;
+        final int availH = mBottom - mTop;
+        for (final TouchOverlay overlay : mTouchOverlay) {
+            overlay.onTouch(event, availW, availH);
+        }
+        return true;
+    }
+
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -291,5 +305,17 @@ public class Analog24HClock extends View {
 
     public void clearDialOverlays() {
         mDialOverlay.clear();
+    }
+
+    public void addTouchOverlay(TouchOverlay dialOverlay) {
+        mTouchOverlay.add(dialOverlay);
+    }
+
+    public void removeTouchOverlay(TouchOverlay dialOverlay) {
+        mTouchOverlay.remove(dialOverlay);
+    }
+
+    public void clearTouchOverlays() {
+        mTouchOverlay.clear();
     }
 }
